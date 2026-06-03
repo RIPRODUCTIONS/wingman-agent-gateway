@@ -75,14 +75,18 @@ Full input/output schemas: [`/openapi.json`](https://agent.wingmanprotocol.com/o
 - **Pay-per-call (x402):** $0.001–$0.002 per call in USDC on **Base** — no signup, no key, the agent pays inline.
 - **Pro keys:** 25,000 calls/month for production pipelines.
 
-### How x402 pay-per-call works
+### How x402 pay-per-call works (v2)
 ```
-POST /tools/mortgage            → 402 Payment Required + JSON challenge
-                                  (amount, payee wallet, Base/USDC)
-# agent pays the quoted USDC on Base, then retries with:
-POST /tools/mortgage  X-Payment: <tx_hash>   → 200 + result
+POST /tools/mortgage                     → 402 Payment Required + x402 v2 challenge
+                                           (scheme, network eip155:8453, USDC asset, amount, payTo)
+# an x402-capable client signs an EIP-3009 transferWithAuthorization (USDC on Base)
+# and resends it in the PAYMENT-SIGNATURE header:
+POST /tools/mortgage  PAYMENT-SIGNATURE: <signed authorization>   → 200 + result
 ```
-The payment manifest (wallet, chain, prices) is at [`/.well-known/x402`](https://agent.wingmanprotocol.com/.well-known/x402).
+The gateway verifies the signature and **settles it on-chain from its own wallet — sovereign
+self-settlement, no third-party facilitator**. The payment manifest (network, asset, wallet,
+prices) is at [`/.well-known/x402`](https://agent.wingmanprotocol.com/.well-known/x402). Prefer no
+crypto? Use the free `X-API-Key` tier above — it skips payment entirely.
 
 ---
 
