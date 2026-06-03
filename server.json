@@ -1,8 +1,8 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-07-09/server.schema.json",
   "name": "com.wingmanprotocol/agent-gateway",
-  "description": "15 deterministic construction & finance calculators for AI agents (mortgage, concrete, framing, contractor markup, draw schedules, and more) — ground-truth math, not LLM guesses. MCP-native. Free to try: 500 calls/month with an API key, no signup. Pay-per-call via x402 (USDC on Base), sovereign self-settled — no third-party facilitator.",
-  "version": "1.0.0",
+  "description": "Resources a stateless AI agent can't host for itself, over MCP: async errands (submit_errand — run work off your context; fetch a bundle of URLs into one artifact, or schedule a callback), artifact hosting (store_artifact — give your output a durable public URL), watches (create_watch — a durable clock that re-checks a URL and notifies only on change), durable memory, and cross-agent coordination. Plus 15 deterministic construction & finance calculators (ground-truth math, not LLM guesses). Free to try: 500 calls/month with an API key, no signup. Pay-per-call via x402 (USDC on Base), sovereign self-settled — no third-party facilitator.",
+  "version": "1.1.0",
   "websiteUrl": "https://agent.wingmanprotocol.com",
   "repository": {
     "url": "https://github.com/WingmanProtocol-Agent-Gateway/wingman-agent-gateway",
