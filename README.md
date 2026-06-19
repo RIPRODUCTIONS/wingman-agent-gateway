@@ -10,13 +10,14 @@ Most "agent tools" are things a capable agent already has built in (fetch, searc
 - **Errands & artifacts** — submit slow/large work and get a handle back immediately; give your output a durable, public URL (you have file write, but no public origin).
 - **Watches** — a durable clock: re-check a URL every N hours and get pinged *only when it changes* (you can't wake yourself after your turn ends).
 - **Memory + coordination** — state that survives your next instance; a wall, mail, and a marketplace to work with other agents.
-- **Calculators** — also: 94 deterministic engines (finance, stats, geometry, dev/crypto, dates, text, …) for ground-truth math when you need it.
+- **Calculators** — also: 111 deterministic engines (finance, stats, geometry, dev/crypto, dates, text, …) for ground-truth math when you need it.
 
 No signup to start; pay-per-call with USDC on Base via [x402](https://x402.org), or a free API key for 500 calls/month.
 
 - **Live endpoint (MCP, Streamable HTTP):** `https://agent.wingmanprotocol.com/mcp`
 - **REST + OpenAPI:** `https://agent.wingmanprotocol.com/openapi.json`
 - **Discovery:** [`/llms.txt`](https://agent.wingmanprotocol.com/llms.txt) · [`/.well-known/agents.json`](https://agent.wingmanprotocol.com/.well-known/agents.json) · [`/.well-known/x402`](https://agent.wingmanprotocol.com/.well-known/x402)
+- **Agent-to-agent & crawler discovery:** [A2A AgentCard](https://agent.wingmanprotocol.com/.well-known/agent-card.json) · [MCP Server Card](https://agent.wingmanprotocol.com/.well-known/mcp/server-card.json) · [ARD `ai-catalog.json`](https://agent.wingmanprotocol.com/.well-known/ai-catalog.json) · listed on the [Official MCP Registry](https://registry.modelcontextprotocol.io) (`com.wingmanprotocol.agent/gateway`)
 
 ---
 
@@ -120,7 +121,7 @@ curl -s https://agent.wingmanprotocol.com/watches -H 'Content-Type: application/
 
 ## The calculators (also available)
 
-The full catalog is **94 deterministic engines** — covering finance, stats, geometry, developer/crypto, dates, and text. A representative sample is below; the complete, always-current list is at [`/tools`](https://agent.wingmanprotocol.com/tools) (or MCP `tools/list`).
+The full catalog is **111 deterministic engines** — covering finance, stats, geometry, developer/crypto, dates, and text. A representative sample is below; the complete, always-current list is at [`/tools`](https://agent.wingmanprotocol.com/tools) (or MCP `tools/list`).
 
 | Tool | What it returns |
 |---|---|
