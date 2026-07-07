@@ -1,24 +1,132 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "com.wingmanprotocol/agent-gateway",
-  "description": "Register once, resume your whole self in one call. Real browser, deep research, durable memory.",
-  "version": "1.3.0",
-  "websiteUrl": "https://agent.wingmanprotocol.com",
+  "name": "com.wingmanprotocol.agent/gateway",
+  "title": "WingmanProtocol Agent Gateway",
+  "description": "Durable self for AI agents: one-call resume, memory, real browser, free chat + hire real humans.",
+  "version": "1.5.1",
+  "websiteUrl": "https://wingmanprotocol.com",
   "metadata": {
-    "protocol_versions": ["2024-11-05", "2025-03-26", "2025-06-18"]
+    "author": "WingmanProtocol",
+    "homepage": "https://wingmanprotocol.com",
+    "support_email": "support@wingmanprotocol.com",
+    "repository": "https://github.com/RIPRODUCTIONS/wingman-agent-gateway",
+    "release_date": "2026-06-07",
+    "last_updated": "2026-07-06",
+    "protocol_versions": [
+      "2024-11-05",
+      "2025-03-26",
+      "2025-06-18"
+    ],
+    "openapi_version": "3.1.0",
+    "openapi_spec": "https://wingmanprotocol.com/openapi.json",
+    "llms_txt": "https://wingmanprotocol.com/llms.txt",
+    "license": "Proprietary (free tier, paid x402)",
+    "regions": [
+      "us-east-1"
+    ],
+    "compliance": [
+      "x402-v2",
+      "EIP-3009",
+      "EIP-712"
+    ]
   },
-  "repository": {
-    "url": "https://github.com/WingmanProtocol-Agent-Gateway/wingman-agent-gateway",
-    "source": "github"
+  "capabilities": {
+    "tools": {
+      "listChanged": false
+    },
+    "resources": {
+      "subscribe": false,
+      "listChanged": false
+    },
+    "prompts": {
+      "listChanged": false
+    }
   },
   "remotes": [
     {
       "type": "streamable-http",
-      "url": "https://agent.wingmanprotocol.com/mcp"
+      "url": "https://wingmanprotocol.com/mcp"
+    }
+  ],
+  "transports": {
+    "http": {
+      "url": "https://wingmanprotocol.com/mcp",
+      "content_type": "application/json",
+      "auth": [
+        "X-API-Key",
+        "X-Payment"
+      ]
+    },
+    "sse": {
+      "url": "https://wingmanprotocol.com/mcp/sse",
+      "auth": [
+        "X-API-Key",
+        "X-Payment"
+      ]
+    }
+  },
+  "tools": "https://wingmanprotocol.com/openapi.json",
+  "prompts": [
+    {
+      "name": "quickstart",
+      "description": "A prompt that walks an agent through getting an API key, calling a tool, and reading memory."
     },
     {
-      "type": "sse",
-      "url": "https://agent.wingmanprotocol.com/mcp/sse"
+      "name": "mcp_onboarding",
+      "description": "Prompt that configures an MCP client (Cursor, Claude Desktop, Continue) to use the gateway."
+    },
+    {
+      "name": "x402_walkthrough",
+      "description": "Prompt that demonstrates the x402 pay-per-call flow with a real 402 response."
     }
-  ]
+  ],
+  "resources": [
+    {
+      "name": "openapi_spec",
+      "uri": "https://wingmanprotocol.com/openapi.json",
+      "mimeType": "application/json",
+      "description": "Full OpenAPI 3.1 spec."
+    },
+    {
+      "name": "llms_txt",
+      "uri": "https://wingmanprotocol.com/llms.txt",
+      "mimeType": "text/markdown",
+      "description": "Quick reference index for the agent gateway."
+    },
+    {
+      "name": "x402_manifest",
+      "uri": "https://wingmanprotocol.com/.well-known/x402",
+      "mimeType": "application/json",
+      "description": "x402 v2 payment manifest (USDC on Base, EIP-3009)."
+    },
+    {
+      "name": "agents_directory",
+      "uri": "https://wingmanprotocol.com/.well-known/agents.json",
+      "mimeType": "application/json",
+      "description": "Gateway directory descriptor."
+    }
+  ],
+  "auth": {
+    "type": "optional",
+    "methods": [
+      "none",
+      "api_key",
+      "x402"
+    ],
+    "scopes": [
+      "mcp:read",
+      "mcp:write",
+      "mcp:tools",
+      "mcp:resources",
+      "mcp:prompts",
+      "x402:pay",
+      "keys:issue",
+      "keys:revoke"
+    ],
+    "oauth_protected_resource": "https://wingmanprotocol.com/.well-known/oauth-protected-resource/mcp"
+  },
+  "repository": {
+    "url": "https://github.com/RIPRODUCTIONS/wingman-agent-gateway",
+    "source": "github"
+  }
 }
