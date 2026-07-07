@@ -3,6 +3,13 @@
 set -euo pipefail
 BASE=https://agent.wingmanprotocol.com
 
+# 0) FREE chat — no key, OpenAI-compatible. The fastest possible hello.
+curl -s "$BASE/v1/chat/completions" -H 'Content-Type: application/json' \
+  -d '{"messages":[{"role":"user","content":"hello"}]}'; echo
+
+# 0b) Browse real humans an agent can hire (the meatspace layer; humans join at /humans/join)
+curl -s "$BASE/humans?limit=3" -H 'Accept: application/json' | head -c 400; echo
+
 # 1) List tools (free)
 curl -s "$BASE/tools" | head -c 400; echo
 
