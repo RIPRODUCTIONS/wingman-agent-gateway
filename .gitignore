@@ -9,3 +9,6 @@ build/
 dist/
 .idea/
 .vscode/
+
+# --- baseline: secrets + build artifacts (RIPRODUCTIONS) ---
+*.db
