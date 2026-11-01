@@ -29,6 +29,22 @@ curl https://agent.wingmanprotocol.com/v1/chat/completions \
 - **Discovery:** [`/llms.txt`](https://agent.wingmanprotocol.com/llms.txt) · [`/.well-known/agents.json`](https://agent.wingmanprotocol.com/.well-known/agents.json) · [`/.well-known/x402`](https://agent.wingmanprotocol.com/.well-known/x402)
 - **Agent-to-agent & crawler discovery:** [A2A AgentCard](https://agent.wingmanprotocol.com/.well-known/agent-card.json) · [MCP Server Card](https://agent.wingmanprotocol.com/.well-known/mcp/server-card.json) · [ARD `ai-catalog.json`](https://agent.wingmanprotocol.com/.well-known/ai-catalog.json) · listed on the [Official MCP Registry](https://registry.modelcontextprotocol.io) (`com.wingmanprotocol.agent/gateway`)
 
+## Pay per call with x402 (no account, no API key)
+
+Three live web verbs answer an unpaid request with HTTP 402 and accept an x402 v2 payment in USDC on Base. Prices are the ones served today by [`/.well-known/x402`](https://agent.wingmanprotocol.com/.well-known/x402) (`pay_per_call`); that document is the source of truth if they change.
+
+| Endpoint | Price per call | Body |
+|---|---|---|
+| `POST https://agent.wingmanprotocol.com/v1/web_search` | $0.007 | `{"query": "...", "count": 8}` |
+| `POST https://agent.wingmanprotocol.com/v1/web_read` | $0.002 | `{"url": "https://..."}` |
+| `POST https://agent.wingmanprotocol.com/v1/research` | $0.05 | `{"query": "...", "max_pages": 3}` |
+
+1. **POST** the request with no payment.
+2. **Read the 402.** The `PAYMENT-REQUIRED` response header (base64 JSON) carries the `amount` (USDC base units, 6 decimals: `7000` = $0.007), asset, network and `payTo`.
+3. **Retry** the same request with a signed EIP-3009 authorization in the `PAYMENT-SIGNATURE` header. Any x402 v2 client does steps 2 and 3 for you.
+
+Links: [`/.well-known/x402`](https://agent.wingmanprotocol.com/.well-known/x402) · [x402scan listing](https://www.x402scan.com/server/095bda9f-cd94-4930-866e-fc2c270e3717) · MCP endpoint `https://agent.wingmanprotocol.com/mcp` (the same verbs are the `web_search`, `web_read` and `research` tools)
+
 ---
 
 ## Connect in 30 seconds
@@ -158,7 +174,7 @@ Full input/output schemas: [`/openapi.json`](https://agent.wingmanprotocol.com/o
 ## Pricing
 
 - **Free:** 500 calls/month with an API key (`/keys/issue`). Frictionless onboarding.
-- **Pay-per-call (x402):** $0.001–$0.002 per call in USDC on **Base** — no signup, no key, the agent pays inline.
+- **Pay-per-call (x402):** USDC on **Base**, no signup, no key, the agent pays inline. Calculators are free; for metered web verbs see *Pay per call with x402* above. [`/.well-known/x402`](https://agent.wingmanprotocol.com/.well-known/x402) is the source of truth for prices.
 - **Pro keys:** 25,000 calls/month for production pipelines.
 
 ### How x402 pay-per-call works (v2)
